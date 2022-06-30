@@ -6,5 +6,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface GoldInterface {
 
-    ResponseEntity<?> createGoldTransaction(String goldQuoteType, String totalAmount, String userId);
+    ResponseEntity<?> createGoldTransactionForBuy(String goldQuoteType, String totalAmount, String userId);
+    ResponseEntity<?> createGoldTransactionForSell(String goldQuoteType, String quantity, String userId);
 }
