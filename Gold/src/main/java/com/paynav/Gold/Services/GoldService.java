@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
@@ -52,11 +54,11 @@ public class GoldService implements GoldInterface {
             double preTaxAmount = totalAmountNum - totalTaxAmt;
 
             //Decimal formatter to round down to 4 places
-            DecimalFormat formatTo4 = new DecimalFormat("#.####");
-            formatTo2.setRoundingMode(RoundingMode.DOWN);
-
             double quantity = preTaxAmount/preTaxAmount1G;
-            String precisedQuantity = formatTo4.format(quantity);
+            BigDecimal bigDecimal = new BigDecimal(quantity);
+            bigDecimal = bigDecimal.setScale(4, RoundingMode.DOWN);
+
+            String precisedQuantity = String.valueOf(bigDecimal.doubleValue());
 
             //Building DTO for transaction
             BuyRequestDTO requestDTO = new BuyRequestDTO(
